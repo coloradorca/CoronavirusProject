@@ -12,3 +12,17 @@
   font-size: calc(50px + 2vmin);
   color: white;
 }
+
+.esrimap {
+  justify-content: center;
+  text-align: center;
+  padding: 10vh;
+}
+
+.webmap {
+  /* margin: 50px; */
+  justify-content: center;
+  text-align: center;
+  height: 70vh;
+  width: 80vh;
+}
