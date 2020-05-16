@@ -46,3 +46,7 @@
   height: 80vh;
   width: 70vh;
 }
+
+.buttons {
+  display: flex;
+}

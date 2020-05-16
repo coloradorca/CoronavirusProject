@@ -6,7 +6,7 @@ import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/worldwide.csv';
 
-export default function CountryChart(props) {
+export default function WorldChart({ showChart }) {
   const [country, updateCountry] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
@@ -17,31 +17,26 @@ export default function CountryChart(props) {
   useEffect(() => {
     setisLoading(true);
 
+    //set timeseries from csv file
     csv(data).then((data) => {
       console.log(data[0]);
-      //set timeseries data to momentdate
       data.map((day) => {
-        // console.log();
+        //add dates to chart
         updateDate((days) => [...days, moment(day.Date).format('MMM Do')]);
+        //add & update deaths
         updateDeaths((death) => [...death, day.Deaths]);
+        //add & update recovered cases
         updateRecovered((recovery) => [...recovery, day.Recovered]);
+        //add & update confirmed cases
         updateConfirmed((confirm) => [...confirm, day.Confirmed]);
       });
-      //set confirmed cases
-
-      //set death cases
-
-      //set recovered cases
     });
 
     setisLoading(false);
   }, []);
 
-  // console.log('moment date', momentdate);
-
   const state = {
     labels: momentdate,
-    // labels: [2, 32, 43, 4, 5],
     datasets: [
       {
         label: 'Confirmed',
@@ -69,7 +64,6 @@ export default function CountryChart(props) {
         label: 'Recovered',
         fill: false,
         pointRadius: 0,
-        // backgroundColor: 'red',
         borderColor: 'green',
         pointBorderColor: 'green',
         data: recovered,
@@ -77,8 +71,8 @@ export default function CountryChart(props) {
     ],
   };
 
-  return isLoading ? (
-    <div> chart is loading</div>
+  return isLoading || showChart ? (
+    <div> chart goes here </div>
   ) : (
     <div className='chart'>
       <div>
@@ -129,7 +123,6 @@ export default function CountryChart(props) {
               display: true,
               text: 'World Coronavirus Deaths',
               fontSize: 30,
-              // color: 'red',
               fontColor: 'red',
             },
             legend: {

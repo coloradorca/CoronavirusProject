@@ -4,16 +4,17 @@ import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 import './App.css';
 
 export default function Map({ toggle }) {
+  const [isLoading, setisLoading] = useState(false);
   let mapRef = useRef();
 
   useEffect(() => {
+    setisLoading(true);
     loadModules(
       [
         'esri/Map',
         'esri/views/MapView',
         'esri/layers/FeatureLayer',
         'esri/layers/GraphicsLayer',
-        // 'esri/layers/Graphic',
         'esri/layers/CSVLayer',
         'esri/widgets/Search',
       ],
@@ -25,8 +26,8 @@ export default function Map({ toggle }) {
         FeatureLayer,
         GraphicsLayer,
         Search,
-        Graphic,
-        CSVLayer,
+        // Graphic,
+        // CSVLayer,
       ]) => {
         const map = new ArcGISMap({
           //change the basemap color/value here
@@ -43,10 +44,12 @@ export default function Map({ toggle }) {
         });
 
         //add search bar
-        var search = new Search({
+        const searchwidget = new Search({
           view: view,
         });
-        view.ui.add(search, 'top-right');
+        view.ui.add(searchwidget, {
+          position: 'bottom-right',
+        });
 
         //featureLayer displaying red circles of coronavirus cases
         var covidLayer = new FeatureLayer({
@@ -54,77 +57,77 @@ export default function Map({ toggle }) {
             'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1',
         });
 
-        //add a graphic layer
-        var graphicsLayer = new GraphicsLayer();
-        map.add(graphicsLayer);
+        // add a graphic layer
+        // var graphicsLayer = new GraphicsLayer();
+        // map.add(graphicsLayer);
 
-        function addGraphics(result) {
-          // graphicsLayer.removeAll();
-          result.features.forEach(function (feature) {
-            var g = new Graphic({
-              geometry: feature.geometry,
-              attributes: feature.attributes,
-              symbol: {
-                type: 'simple-marker',
-                color: [0, 0, 0],
-                outline: {
-                  width: 2,
-                  color: [0, 255, 255],
-                },
-                size: '600px',
-              },
-              popupTemplate: {
-                title: 'Hi There',
-                content: 'This a trail located in.',
-              },
-            });
-            graphicsLayer.add(g);
-            console.log(g);
-          });
-        }
+        // function addGraphics(result) {
+        //   // graphicsLayer.removeAll();
+        //   result.features.forEach(function (feature) {
+        //     var g = new Graphic({
+        //       geometry: feature.geometry,
+        //       attributes: feature.attributes,
+        //       symbol: {
+        //         type: 'simple-marker',
+        //         color: [0, 0, 0],
+        //         outline: {
+        //           width: 2,
+        //           color: [0, 255, 255],
+        //         },
+        //         size: '600px',
+        //       },
+        //       popupTemplate: {
+        //         title: 'Hi There',
+        //         content: 'This a trail located in.',
+        //       },
+        //     });
+        //     graphicsLayer.add(g);
+        //     console.log(g);
+        //   });
+        // }
 
         // function to query the feature layer
-        function queryFeatureLayer(
-          point,
-          distance,
-          spatialRelationship,
-          sqlExpression,
-        ) {
-          if (!map.findLayerById(covidLayer.id)) {
-            covidLayer.outFields = ['*'];
-            map.add(covidLayer, 0);
-          }
-          var query = {
-            geometry: point,
-            distance: distance,
-            spatialRelationship: spatialRelationship,
-            outFields: ['*'],
-            returnGeometry: true,
-            where: sqlExpression,
-          };
+        // function queryFeatureLayer(
+        //   point,
+        //   distance,
+        //   spatialRelationship,
+        //   sqlExpression,
+        // ) {
+        //   if (!map.findLayerById(covidLayer.id)) {
+        //     covidLayer.outFields = ['*'];
+        //     map.add(covidLayer, 0);
+        //   }
+        //   var query = {
+        //     geometry: point,
+        //     distance: distance,
+        //     spatialRelationship: spatialRelationship,
+        //     outFields: ['*'],
+        //     returnGeometry: true,
+        //     where: sqlExpression,
+        //   };
 
-          view.whenLayerView(covidLayer).then(function (featureLayerView) {
-            if (featureLayerView.updating) {
-              var handle = featureLayerView.watch('updating', function (
-                isUpdating,
-              ) {
-                if (!isUpdating) {
-                  // Execute the query
-                  featureLayerView.queryFeatures(query).then(function (result) {
-                    addGraphics(result);
-                  });
-                  handle.remove();
-                }
-              });
-            } else {
-              // Execute the query
-              featureLayerView.queryFeatures(query).then(function (result) {
-                console.log(result);
-                addGraphics(result);
-              });
-            }
-          });
-        }
+        //   view.whenLayerView(covidLayer).then(function (featureLayerView) {
+        //     if (featureLayerView.updating) {
+        //       var handle = featureLayerView.watch('updating', function (
+        //         isUpdating,
+        //       ) {
+        //         if (!isUpdating) {
+        //           // Execute the query
+        //           featureLayerView.queryFeatures(query).then(function (result) {
+        //             addGraphics(result);
+        //           });
+        //           handle.remove();
+        //         }
+        //       });
+        //     } else {
+        //       // Execute the query
+        //       featureLayerView.queryFeatures(query).then(function (result) {
+        //         console.log(result);
+        //         addGraphics(result);
+        //       });
+        //     }
+        //   });
+        // }
 
         //embed this code within the click handler
         const options = {
@@ -133,9 +136,9 @@ export default function Map({ toggle }) {
           where: "Country_Region = 'US'",
         };
 
-        queryFeatures(options).then((response) => {
-          console.log(response.features); // 500
-        });
+        // queryFeatures(options).then((response) => {
+        //   console.log(response.features); // 500
+        // });
 
         //get the co ordinates of click event
         function showCoordinates(pt) {
@@ -150,27 +153,27 @@ export default function Map({ toggle }) {
             view.zoom;
           console.log(coords);
         }
-        view.when(function () {
-          //*** UPDATE ***//
-          queryFeatureLayer(view.center, 1500, 'intersects');
-          // queryFeatureLayerView(view.center, 1500, 'intersects');
-        });
+        // view.when(function () {
+        //   //*** UPDATE ***//
+        //   queryFeatureLayer(view.center, 1500, 'intersects');
+        //   // queryFeatureLayerView(view.center, 1500, 'intersects');
+        // });
 
         //"Country_Region = 'US'"
-        view.on('click', function (evt) {
-          queryFeatureLayer(
-            evt.mapPoint,
-            1500,
-            'intersects',
-            // "Country_Region = 'US'",
-          );
-          // console.log(evt.mapPoint);
-          // showCoordinates(view.toMap({ x: evt.x, y: evt.y }));
-        });
+        // view.on('click', function (evt) {
+        //   queryFeatureLayer(
+        //     evt.mapPoint,
+        //     1500,
+        //     'intersects',
+        //     // "Country_Region = 'US'",
+        //   );
+        //   // console.log(evt.mapPoint);
+        //   // showCoordinates(view.toMap({ x: evt.x, y: evt.y }));
+        // });
 
         // toggle ? map.add(covidLayer, 1) : map.add(normalLayer, 1);
         if (toggle) {
-          map.add(covidLayer, 1);
+          map.add(covidLayer, 0);
         }
 
         return () => {
@@ -180,7 +183,13 @@ export default function Map({ toggle }) {
         };
       },
     );
+    setisLoading(false);
   });
+  // return isLoading ? (
+  //   <div>Loading Map</div>
+  // ) : (
+  //   <div className='webmap' ref={mapRef} />
+  // );
   return <div className='webmap' ref={mapRef} />;
 }
 
