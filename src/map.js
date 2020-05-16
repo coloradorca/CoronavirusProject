@@ -4,10 +4,15 @@ import './App.css';
 
 export default function Map({ toggle }) {
   let mapRef = useRef();
-  console.log('toggle in map component', toggle);
+
   useEffect(() => {
     loadModules(
-      ['esri/Map', 'esri/views/MapView', 'esri/layers/FeatureLayer'],
+      [
+        'esri/Map',
+        'esri/views/MapView',
+        'esri/layers/FeatureLayer',
+        // 'esri/tasks/support/Query',
+      ],
       { css: true },
     ).then(([ArcGISMap, MapView, FeatureLayer]) => {
       const map = new ArcGISMap({
@@ -36,7 +41,50 @@ export default function Map({ toggle }) {
           'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Joshua_Tree_Climbs/FeatureServer',
       });
 
-      toggle ? map.add(covidLayer, 1) : map.add(normalLayer, 1);
+      //function to query the feature layer??
+      // function queryFeatureLayer(
+      //   point,
+      //   // distance,
+      //   // spatialRelationship,
+      //   sqlExpression,
+      // ) {
+      //   var query = {
+      //     geometry: point,
+      //     // distance: distance,
+      //     // spatialRelationship: spatialRelationship,
+      //     outFields: ['*'],
+      //     returnGeometry: true,
+      //     where: sqlExpression,
+      //   };
+      //   covidLayer.queryFeatures(query).then(function (result) {
+      //     console.log(result);
+      //   });
+      // }
+
+      //get the co ordinates of click event
+      function showCoordinates(pt) {
+        var coords =
+          'Lat/Lon ' +
+          pt.latitude.toFixed(3) +
+          ' ' +
+          pt.longitude.toFixed(3) +
+          ' | Scale 1:' +
+          Math.round(view.scale * 1) / 1 +
+          ' | Zoom ' +
+          view.zoom;
+        console.log(coords);
+      }
+
+      view.on('click', function (evt) {
+        // queryFeatureLayer(evt.mapPoint, "Country_Region = 'US'");
+        // console.log(evt.mapPoint);
+        showCoordinates(view.toMap({ x: evt.x, y: evt.y }));
+      });
+
+      // toggle ? map.add(covidLayer, 1) : map.add(normalLayer, 1);
+      if (toggle) {
+        map.add(covidLayer, 1);
+      }
 
       return () => {
         if (view) {

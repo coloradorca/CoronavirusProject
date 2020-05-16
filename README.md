@@ -6,6 +6,8 @@
 
 ### Installation
 
+Ensure `node` and `npm` are installed
+
 Navigate to preferred local directory
 
 Clone this repo
