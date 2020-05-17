@@ -4,9 +4,9 @@ import moment from 'moment';
 import Chart from 'chart.js';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
-import data from './data/worldwide.csv';
+import data from './data/time-series.csv';
 
-export default function WorldChart({ showChart }) {
+export default function CountryChart({ showChart }) {
   const [country, updateCountry] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
@@ -14,21 +14,30 @@ export default function WorldChart({ showChart }) {
   const [recovered, updateRecovered] = useState([]);
   const [confirmed, updateConfirmed] = useState([]);
 
+  let selectedCountry = 'Argentina';
+
   useEffect(() => {
     setisLoading(true);
 
     //set timeseries from csv file
-    csv(data).then((data) => {
-      console.log(data[0]);
-      data.map((day) => {
-        //add dates to chart
-        updateDate((days) => [...days, moment(day.Date).format('MMM Do')]);
-        //add & update deaths
-        updateDeaths((death) => [...death, day.Deaths]);
-        //add & update recovered cases
-        updateRecovered((recovery) => [...recovery, day.Recovered]);
-        //add & update confirmed cases
-        updateConfirmed((confirm) => [...confirm, day.Confirmed]);
+    csv(data).then(async (data) => {
+      // console.log(data[8899]['Country/Region']);
+      await data.map((item) => {
+        //only show data since first death
+        if (item['Deaths'] > 0) {
+          //filter the data points to only include country selected
+          if (item['Country/Region'] === `${selectedCountry}`) {
+            console.log();
+            //add dates to chart
+            updateDate((days) => [...days, moment(item.Date).format('MMM Do')]);
+            //add & update recovered cases
+            updateRecovered((recovery) => [...recovery, item.Recovered]);
+            //add & update confirmed cases
+            updateConfirmed((confirm) => [...confirm, item.Confirmed]);
+            //add & update deaths
+            updateDeaths((death) => [...death, item.Deaths]);
+          }
+        }
       });
     });
 
@@ -44,7 +53,7 @@ export default function WorldChart({ showChart }) {
         lineTension: 0,
         backgroundColor: 'purple',
         borderColor: 'purple',
-        borderWidth: 2,
+        borderWidth: 5,
         pointBorderColor: 'green',
         pointRadius: 0,
         data: confirmed,
@@ -55,7 +64,7 @@ export default function WorldChart({ showChart }) {
         lineTension: 0,
         backgroundColor: 'red',
         borderColor: 'red',
-        borderWidth: 2,
+        borderWidth: 5,
         pointBorderColor: 'red',
         pointRadius: 0,
         data: deaths,
@@ -65,14 +74,15 @@ export default function WorldChart({ showChart }) {
         fill: false,
         pointRadius: 0,
         borderColor: 'green',
+        borderWidth: 5,
         pointBorderColor: 'green',
         data: recovered,
       },
     ],
   };
 
-  return isLoading || showChart ? (
-    <div> chart goes here </div>
+  return isLoading || !showChart ? (
+    <div></div>
   ) : (
     <div className='chart'>
       <div>
@@ -80,12 +90,22 @@ export default function WorldChart({ showChart }) {
           data={state}
           options={{
             tooltips: {
+              titleFontSize: 40,
+              bodyFontSize: 40,
+              bodySpacing: 4,
+              custom: function (tooltip) {
+                if (!tooltip) return;
+                // disable displaying the color box;
+                tooltip.displayColors = false;
+              },
               callbacks: {
                 title: function (tooltipItem, data) {
                   return data['labels'][tooltipItem[0]['index']];
                 },
                 label: function (tooltipItem, data) {
-                  return data['datasets'][0]['data'][tooltipItem['index']];
+                  return `Amount: ${
+                    data['datasets'][0]['data'][tooltipItem['index']]
+                  }`;
                 },
               },
             },
@@ -121,7 +141,7 @@ export default function WorldChart({ showChart }) {
 
             title: {
               display: true,
-              text: 'World Coronavirus Deaths',
+              text: `${selectedCountry} -  since first Death`,
               fontSize: 30,
               fontColor: 'red',
             },

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './App.css';
 import Map from './map.js';
 import Nav from './nav.js';
-import WorldChart from './chart.js';
+import WorldChart from './WorldChart.js';
+import CountryChart from './countryChart.js';
+import EsriMap from './EsriMap.js';
 
-function App() {
+export default function App() {
   const [state, setState] = useState(true);
   const [chart, changeChart] = useState(false);
 
@@ -12,7 +14,8 @@ function App() {
   function toggle() {
     setState(!state);
   }
-  function toggleChart() {
+  function toggleChart(e) {
+    e.preventDefault();
     changeChart(!chart);
   }
   return (
@@ -25,12 +28,14 @@ function App() {
       </div>
       <div className='wrapper'>
         <div className='esrimap'>
-          <Map toggle={state} />
+          {/* <Map toggle={state} /> */}
+          <EsriMap toggle={state} />
         </div>
-        <div className='chart1'>{/* <WorldChart showChart={chart} /> */}</div>
+        <div className='charts'>
+          <WorldChart showChart={chart} />
+          <CountryChart showChart={chart} />
+        </div>
       </div>
     </div>
   );
 }
-
-export default App;
