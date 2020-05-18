@@ -23,13 +23,6 @@ export default function CountryChart({ showChart, maincountry }) {
     updateDeaths((prev) => []);
     updateRecovered((prev) => []);
 
-    // updateCountry(maincountry);
-    console.log(
-      'country in chart :',
-      country,
-      'country in chart from app :',
-      maincountry,
-    );
     //set timeseries from csv file
     csv(data).then((data) => {
       // console.log(data[8899]['Country/Region']);
@@ -47,12 +40,6 @@ export default function CountryChart({ showChart, maincountry }) {
             //add & update deaths
             updateDeaths((death) => [...death, item.Deaths]);
           }
-          // if (item['Country/Region'] !== `${maincountry}`) {
-          //   updateDate((prev) => []);
-          //   updateConfirmed((prev) => []);
-          //   updateDeaths((prev) => []);
-          //   updateRecovered((prev) => []);
-          // }
         }
       });
     });

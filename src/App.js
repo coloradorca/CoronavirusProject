@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import './App.css';
-import Map from './map.js';
 import Nav from './nav.js';
 import WorldChart from './WorldChart.js';
 import CountryChart from './countryChart.js';
 import EsriMap from './EsriMap.js';
+import TextBox from './textbox.js';
 
 export default function App() {
   const [state, setState] = useState(true);
   const [chart, changeChart] = useState(false);
   const [current, changeCountry] = useState('Iceland');
+  const [stats, changeStats] = useState('');
 
   //function to toggle feature layer
   const toggle = () => {
@@ -25,6 +26,10 @@ export default function App() {
     changeCountry(country);
   };
 
+  var changeStatistics = (item) => {
+    changeStats(item);
+  };
+
   return (
     <div className='App'>
       <div>
@@ -36,14 +41,20 @@ export default function App() {
       <div className='wrapper'>
         <div className='esrimap'>
           <EsriMap
+            changeStatistics={changeStatistics}
             changeNation={changeNation}
             appcountry={current}
             toggle={state}
           />
         </div>
-        <div className='charts'>
-          <WorldChart showChart={chart} />
-          <CountryChart maincountry={current} showChart={chart} />
+        <div className='statsAndText'>
+          <div className='charts'>
+            <WorldChart changeStatistics={changeStatistics} showChart={chart} />
+            <CountryChart maincountry={current} showChart={chart} />
+          </div>
+          <div className='text'>
+            <TextBox countryData={stats} />
+          </div>
         </div>
       </div>
     </div>

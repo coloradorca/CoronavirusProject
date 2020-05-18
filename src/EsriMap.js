@@ -3,7 +3,7 @@ import { loadModules } from 'esri-loader';
 import { queryFeatures, createQuery } from '@esri/arcgis-rest-feature-layer';
 import './App.css';
 
-export default function EsriMap({ toggle, changeNation }) {
+export default function EsriMap({ toggle, changeNation, changeStatistics }) {
   let mapRef = useRef();
 
   useEffect(() => {
@@ -46,19 +46,6 @@ export default function EsriMap({ toggle, changeNation }) {
         position: 'top-right',
       });
 
-      //TODO :
-      //query the feature layer
-      // function countryQuery() {
-      //   var query = covidLayer.createQuery();
-      //   query.where = '1 = 1';
-      //   query.returnCountOnly = true;
-      //   query.f = 'json';
-      //   query.outFields = 'Country_Region, Confirmed, Recovered, Deaths';
-      //   return covidLayer.queryFeatures(query);
-      // }
-
-      // countryQuery().then((results) => console.log(results.fields));
-
       //toggle the featurelayer via button on main page (nav component)
       if (toggle) {
         map.add(covidLayer, 0);
@@ -79,9 +66,10 @@ export default function EsriMap({ toggle, changeNation }) {
             })[0].graphic;
             //set the country clicked back up to main App component, changing the chart
             changeNation(graphic.attributes.Country_Region);
+            changeStatistics(graphic.attributes);
 
             //get information from the selected country
-            // console.log(graphic.attributes.Country_Region);
+            console.log('country data in map', graphic.attributes);
           }
         });
       });
