@@ -6,28 +6,38 @@ import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/time-series.csv';
 
-export default function CountryChart({ showChart }) {
-  const [country, updateCountry] = useState([]);
+export default function CountryChart({ showChart, maincountry }) {
+  const [country, updateCountry] = useState('Iceland');
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
   const [deaths, updateDeaths] = useState([]);
   const [recovered, updateRecovered] = useState([]);
   const [confirmed, updateConfirmed] = useState([]);
 
-  let selectedCountry = 'Argentina';
-
   useEffect(() => {
     setisLoading(true);
 
+    //reset state to clear previous countries data
+    updateDate((prev) => []);
+    updateConfirmed((prev) => []);
+    updateDeaths((prev) => []);
+    updateRecovered((prev) => []);
+
+    // updateCountry(maincountry);
+    console.log(
+      'country in chart :',
+      country,
+      'country in chart from app :',
+      maincountry,
+    );
     //set timeseries from csv file
-    csv(data).then(async (data) => {
+    csv(data).then((data) => {
       // console.log(data[8899]['Country/Region']);
-      await data.map((item) => {
+      data.map((item) => {
         //only show data since first death
         if (item['Deaths'] > 0) {
           //filter the data points to only include country selected
-          if (item['Country/Region'] === `${selectedCountry}`) {
-            console.log();
+          if (item['Country/Region'] === `${maincountry}`) {
             //add dates to chart
             updateDate((days) => [...days, moment(item.Date).format('MMM Do')]);
             //add & update recovered cases
@@ -37,14 +47,21 @@ export default function CountryChart({ showChart }) {
             //add & update deaths
             updateDeaths((death) => [...death, item.Deaths]);
           }
+          // if (item['Country/Region'] !== `${maincountry}`) {
+          //   updateDate((prev) => []);
+          //   updateConfirmed((prev) => []);
+          //   updateDeaths((prev) => []);
+          //   updateRecovered((prev) => []);
+          // }
         }
       });
     });
 
     setisLoading(false);
-  }, []);
+    //set the useEffect listener to a change in the country
+  }, [maincountry, country]);
 
-  const state = {
+  let state = {
     labels: momentdate,
     datasets: [
       {
@@ -117,7 +134,6 @@ export default function CountryChart({ showChart }) {
                     labelString: 'Deaths',
                     fontColor: '#61822F',
                     fontSize: 40,
-                    // labels: momentdate,
                   },
 
                   ticks: {
@@ -141,7 +157,7 @@ export default function CountryChart({ showChart }) {
 
             title: {
               display: true,
-              text: `${selectedCountry} -  since first Death`,
+              text: `${maincountry} -  since first Death`,
               fontSize: 30,
               fontColor: 'red',
             },

@@ -7,8 +7,8 @@ export default function Nav({ toggle, toggleChart }) {
       <button className='toggleBtn' onClick={toggle}>
         Toggle Cases
       </button>
-      <button className='toggleBtn' onClick={toggleChart}>
-        Toggle Chart
+      <button className='toggleCountry' onClick={toggleChart}>
+        World/Country Chart
       </button>
     </div>
   );

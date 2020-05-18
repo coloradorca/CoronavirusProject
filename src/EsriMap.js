@@ -3,7 +3,7 @@ import { loadModules } from 'esri-loader';
 import { queryFeatures, createQuery } from '@esri/arcgis-rest-feature-layer';
 import './App.css';
 
-export default function EsriMap({ toggle }) {
+export default function EsriMap({ toggle, changeNation }) {
   let mapRef = useRef();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function EsriMap({ toggle }) {
     ).then(([ArcGISMap, MapView, FeatureLayer, Search]) => {
       const map = new ArcGISMap({
         //change the basemap color/value here
-        basemap: 'gray',
+        basemap: 'dark-gray',
         layers: [],
       });
 
@@ -34,6 +34,7 @@ export default function EsriMap({ toggle }) {
       var covidLayer = new FeatureLayer({
         url:
           'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1',
+        outFields: ['*'],
       });
 
       //add search bar
@@ -47,27 +48,21 @@ export default function EsriMap({ toggle }) {
 
       //TODO :
       //query the feature layer
-      function countryQuery() {
-        var query = covidLayer.createQuery();
-        query.where = '1 = 1';
-        query.returnCountOnly = true;
-        query.f = 'json';
-        query.outFields = 'Country_Region, Confirmed, Recovered, Deaths';
-        return covidLayer.queryFeatures(query);
-      }
+      // function countryQuery() {
+      //   var query = covidLayer.createQuery();
+      //   query.where = '1 = 1';
+      //   query.returnCountOnly = true;
+      //   query.f = 'json';
+      //   query.outFields = 'Country_Region, Confirmed, Recovered, Deaths';
+      //   return covidLayer.queryFeatures(query);
+      // }
 
       // countryQuery().then((results) => console.log(results.fields));
 
-      //toggle the featurelayer external to map
-
+      //toggle the featurelayer via button on main page (nav component)
       if (toggle) {
         map.add(covidLayer, 0);
       }
-
-      // view.on('click', function (event) {
-      //   console.log(event.mapPoint);
-      //   countryQuery().then((results) => console.log(results.fields));
-      // });
 
       view.on('click', function (event) {
         var screenPoint = {
@@ -79,11 +74,14 @@ export default function EsriMap({ toggle }) {
         view.hitTest(screenPoint).then(function (response) {
           if (response.results.length) {
             var graphic = response.results.filter(function (result) {
-              // check if the graphic belongs to the layer of interest
+              // check if the graphic belongs to the covid feature layer
               return result.graphic.layer === covidLayer;
             })[0].graphic;
-            // do something with the result graphic
-            console.log(graphic.attributes);
+            //set the country clicked back up to main App component, changing the chart
+            changeNation(graphic.attributes.Country_Region);
+
+            //get information from the selected country
+            // console.log(graphic.attributes.Country_Region);
           }
         });
       });

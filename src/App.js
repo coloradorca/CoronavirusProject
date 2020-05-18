@@ -9,15 +9,22 @@ import EsriMap from './EsriMap.js';
 export default function App() {
   const [state, setState] = useState(true);
   const [chart, changeChart] = useState(false);
+  const [current, changeCountry] = useState('Iceland');
 
   //function to toggle feature layer
-  function toggle() {
+  const toggle = () => {
     setState(!state);
-  }
-  function toggleChart(e) {
-    e.preventDefault();
+  };
+  //function to toggle the chart (word/country)
+  const toggleChart = () => {
     changeChart(!chart);
-  }
+  };
+  //function to change the selected country
+  var changeNation = (country) => {
+    // console.log(country);
+    changeCountry(country);
+  };
+
   return (
     <div className='App'>
       <div>
@@ -28,12 +35,15 @@ export default function App() {
       </div>
       <div className='wrapper'>
         <div className='esrimap'>
-          <EsriMap toggle={state} />
-          {/* <EsriMap2 toggle={state} /> */}
+          <EsriMap
+            changeNation={changeNation}
+            appcountry={current}
+            toggle={state}
+          />
         </div>
         <div className='charts'>
-          {/* <WorldChart showChart={chart} />
-          <CountryChart showChart={chart} /> */}
+          <WorldChart showChart={chart} />
+          <CountryChart maincountry={current} showChart={chart} />
         </div>
       </div>
     </div>
