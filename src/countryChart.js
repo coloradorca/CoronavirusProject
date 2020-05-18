@@ -61,6 +61,8 @@ export default function CountryChart({ showChart, maincountry }) {
     //set the useEffect listener to a change in the country
   }, [maincountry, country]);
 
+  //set the data from current state
+  //set  the CSS properties for the line graph
   let state = {
     labels: momentdate,
     datasets: [
@@ -98,9 +100,12 @@ export default function CountryChart({ showChart, maincountry }) {
     ],
   };
 
+  //return the component
+  //if the data is loading, or the world chart is displayed => render an empty div
   return isLoading || !showChart ? (
     <div></div>
   ) : (
+    //if data loaded and world chart not selected, utilize Line component from 'react-chartjs-2' library
     <div className='chart'>
       <div>
         <Line
@@ -115,6 +120,7 @@ export default function CountryChart({ showChart, maincountry }) {
                 // disable displaying the color box;
                 tooltip.displayColors = false;
               },
+              //these functions are for how the tooltip is display (on hover of specific line)
               callbacks: {
                 title: function (tooltipItem, data) {
                   return data['labels'][tooltipItem[0]['index']];
@@ -126,6 +132,7 @@ export default function CountryChart({ showChart, maincountry }) {
                 },
               },
             },
+            //display of Title, Legend, x + y axis labels
             scales: {
               yAxes: [
                 {
@@ -154,7 +161,6 @@ export default function CountryChart({ showChart, maincountry }) {
                 },
               ],
             },
-
             title: {
               display: true,
               text: `${maincountry} -  since first Death`,

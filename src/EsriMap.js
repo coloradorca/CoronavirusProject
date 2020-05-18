@@ -26,8 +26,8 @@ export default function EsriMap({ toggle, changeNation }) {
       const view = new MapView({
         container: mapRef.current,
         map: map,
-        center: [-12, 41.76],
-        zoom: 2,
+        center: [26, 43.76],
+        zoom: 4,
       });
 
       //featureLayer displaying red circles of coronavirus cases
