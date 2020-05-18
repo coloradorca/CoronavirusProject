@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import moment from 'moment';
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/time-series.csv';
 
 export default function CountryChart({ showChart, maincountry }) {
-  const [country, updateCountry] = useState('Iceland');
+  // const [country, updateCountry] = useState('Iceland');
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
   const [deaths, updateDeaths] = useState([]);
@@ -26,7 +26,7 @@ export default function CountryChart({ showChart, maincountry }) {
     //set timeseries from csv file
     csv(data).then((data) => {
       // console.log(data[8899]['Country/Region']);
-      data.map((item) => {
+      data.forEach((item) => {
         //only show data since first death
         if (item['Deaths'] > 0) {
           //filter the data points to only include country selected
@@ -46,9 +46,9 @@ export default function CountryChart({ showChart, maincountry }) {
 
     setisLoading(false);
     //set the useEffect listener to a change in the country
-  }, [maincountry, country]);
+  }, [maincountry]);
 
-  //set the data from current state
+  //set the data for the line chart from current state
   //set  the CSS properties for the line graph
   let state = {
     labels: momentdate,
@@ -125,7 +125,7 @@ export default function CountryChart({ showChart, maincountry }) {
                 {
                   scaleLabel: {
                     display: true,
-                    labelString: 'Deaths',
+                    labelString: 'Cases',
                     fontColor: '#61822F',
                     fontSize: 40,
                   },

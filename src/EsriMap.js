@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
-import { queryFeatures, createQuery } from '@esri/arcgis-rest-feature-layer';
 import './App.css';
 
-export default function EsriMap({ toggle, changeNation, changeStatistics }) {
+export default function EsriMap({
+  toggle,
+  changeNation,
+  changeStatistics,
+  toggleChart,
+}) {
   let mapRef = useRef();
 
   useEffect(() => {
@@ -67,9 +71,9 @@ export default function EsriMap({ toggle, changeNation, changeStatistics }) {
             //set the country clicked back up to main App component, changing the chart
             changeNation(graphic.attributes.Country_Region);
             changeStatistics(graphic.attributes);
-
+            toggleChart();
             //get information from the selected country
-            console.log('country data in map', graphic.attributes);
+            // console.log('country data in map', graphic.attributes);
           }
         });
       });
@@ -80,7 +84,7 @@ export default function EsriMap({ toggle, changeNation, changeStatistics }) {
         }
       };
     });
-  });
+  }, []);
 
   return <div className='webmap' ref={mapRef} />;
 }

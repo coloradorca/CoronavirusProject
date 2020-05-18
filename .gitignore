@@ -1,5 +1,6 @@
 
 serviceWorker.js
+yarn.lock
 
 # dependencies
 /node_modules

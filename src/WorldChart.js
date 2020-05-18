@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import moment from 'moment';
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/worldwide.csv';
 
 export default function WorldChart({ showChart, changeStatistics }) {
-  const [country, updateCountry] = useState([]);
+  // const [country, updateCountry] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
   const [deaths, updateDeaths] = useState([]);
@@ -19,7 +19,7 @@ export default function WorldChart({ showChart, changeStatistics }) {
     //set timeseries from csv file
     csv(data).then((data) => {
       changeStatistics(data[data.length - 1]);
-      data.map((day) => {
+      data.forEach((day) => {
         //add dates to chart
         updateDate((days) => [...days, moment(day.Date).format('MMM Do')]);
         //add & update deaths
@@ -32,7 +32,7 @@ export default function WorldChart({ showChart, changeStatistics }) {
     });
 
     setisLoading(false);
-  }, []);
+  }, [changeStatistics]);
 
   const state = {
     labels: momentdate,
@@ -97,10 +97,9 @@ export default function WorldChart({ showChart, changeStatistics }) {
                 {
                   scaleLabel: {
                     display: true,
-                    labelString: 'Deaths',
+                    labelString: 'Cases',
                     fontColor: '#61822F',
                     fontSize: 40,
-                    // labels: momentdate,
                   },
 
                   ticks: {

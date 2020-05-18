@@ -1,4 +1,6 @@
-.country {
+.textbox {
+  /* display: inline-flex; */
+  text-align: center;
   font: blue;
   size: 40px;
 }

@@ -21,14 +21,6 @@ export default function App() {
     changeChart(!chart);
   };
   //function to change the selected country
-  var changeNation = (country) => {
-    // console.log(country);
-    changeCountry(country);
-  };
-
-  var changeStatistics = (item) => {
-    changeStats(item);
-  };
 
   return (
     <div className='App'>
@@ -36,24 +28,29 @@ export default function App() {
         <header className='App-header'>Coronavirus Project</header>
       </div>
       <div>
-        <Nav toggle={toggle} toggleChart={toggleChart} />
+        <Nav
+          toggle={toggle}
+          toggleChart={toggleChart}
+          changeStatistics={changeStats}
+        />
       </div>
       <div className='wrapper'>
         <div className='esrimap'>
           <EsriMap
-            changeStatistics={changeStatistics}
-            changeNation={changeNation}
+            toggleChart={toggleChart}
+            changeStatistics={changeStats}
+            changeNation={changeCountry}
             appcountry={current}
             toggle={state}
           />
         </div>
         <div className='statsAndText'>
           <div className='charts'>
-            <WorldChart changeStatistics={changeStatistics} showChart={chart} />
+            <WorldChart changeStatistics={changeStats} showChart={chart} />
             <CountryChart maincountry={current} showChart={chart} />
           </div>
           <div className='text'>
-            <TextBox countryData={stats} />
+            <TextBox world={chart} countryData={stats} />
           </div>
         </div>
       </div>
