@@ -3,7 +3,7 @@ import { loadModules } from 'esri-loader';
 import { queryFeatures, createQuery } from '@esri/arcgis-rest-feature-layer';
 import './App.css';
 
-export default function EsriMap({ toggle }) {
+export default function EsriMap2({ toggle }) {
   let mapRef = useRef();
 
   useEffect(() => {
@@ -33,7 +33,8 @@ export default function EsriMap({ toggle }) {
       //featureLayer displaying red circles of coronavirus cases
       var covidLayer = new FeatureLayer({
         url:
-          'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1',
+          'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/2?f=pjson',
+        outFields: ['*'],
       });
 
       //add search bar
@@ -46,47 +47,28 @@ export default function EsriMap({ toggle }) {
       });
 
       //TODO :
+
       //query the feature layer
       function countryQuery() {
         var query = covidLayer.createQuery();
-        query.where = '1 = 1';
-        query.returnCountOnly = true;
+        // query.where = '1 = 1';
+        // query.returnCountOnly = true;
+        // query.geometry =
         query.f = 'json';
-        query.outFields = 'Country_Region, Confirmed, Recovered, Deaths';
+        // query.spatialRelationship = 'intersects';
         return covidLayer.queryFeatures(query);
       }
 
-      // countryQuery().then((results) => console.log(results.fields));
+      countryQuery().then((results) =>
+        console.log(results['__accessor__'].spatialReference),
+      );
 
       //toggle the featurelayer external to map
 
       if (toggle) {
         map.add(covidLayer, 0);
       }
-
-      // view.on('click', function (event) {
-      //   console.log(event.mapPoint);
-      //   countryQuery().then((results) => console.log(results.fields));
-      // });
-
-      view.on('click', function (event) {
-        var screenPoint = {
-          x: event.x,
-          y: event.y,
-        };
-
-        // Search for graphics at the clicked location
-        view.hitTest(screenPoint).then(function (response) {
-          if (response.results.length) {
-            var graphic = response.results.filter(function (result) {
-              // check if the graphic belongs to the layer of interest
-              return result.graphic.layer === covidLayer;
-            })[0].graphic;
-            // do something with the result graphic
-            console.log(graphic.attributes);
-          }
-        });
-      });
+      map.add(covidLayer);
 
       return () => {
         if (view) {

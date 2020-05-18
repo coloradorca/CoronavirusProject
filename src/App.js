@@ -28,12 +28,12 @@ export default function App() {
       </div>
       <div className='wrapper'>
         <div className='esrimap'>
-          {/* <Map toggle={state} /> */}
           <EsriMap toggle={state} />
+          {/* <EsriMap2 toggle={state} /> */}
         </div>
         <div className='charts'>
-          <WorldChart showChart={chart} />
-          <CountryChart showChart={chart} />
+          {/* <WorldChart showChart={chart} />
+          <CountryChart showChart={chart} /> */}
         </div>
       </div>
     </div>
