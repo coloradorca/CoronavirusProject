@@ -1,10 +1,10 @@
 # Coronavirus Project
 
-## An intearactable map with a graphical represenatation of timeseries data
+### An intearactive map with a graphical represenatation of timeseries data
 
 ---
 
-### Installation
+## Installation
 
 Ensure `node` and `npm` are installed
 
@@ -20,12 +20,26 @@ Run the following commands
 
 ---
 
-### Created by
+## Technologies used
 
-Rob Gonzalez-Pita
+ArcGIS Javascript API (v 4.15)
 
-### Using
+React
+
+Chart.js
+
+D3
+
+---
+
+## Map Layers & Data
 
 [ArcGIS Covid19 feature layer](https://www.arcgis.com/home/item.html?id=bbb2e4f589ba40d692fab712ae37b9ac#visualize)
 
-[Data Source](https://datahub.io/core/covid-19#resource-countries-aggregated)
+[Data Sources](https://datahub.io/core/covid-19#resource-countries-aggregated)
+
+---
+
+## Created by
+
+Rob Gonzalez-Pita
