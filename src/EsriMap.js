@@ -84,7 +84,7 @@ export default function EsriMap({
         }
       };
     });
-  }, [toggle]);
+  }, []);
 
   return <div className='webmap' ref={mapRef} />;
 }

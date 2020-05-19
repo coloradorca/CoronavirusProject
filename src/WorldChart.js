@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import moment from 'moment';
-// import Chart from 'chart.js';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/worldwide.csv';
 
 export default function WorldChart({ showChart, changeStatistics, setWorld }) {
-  // const [country, updateCountry] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
   const [deaths, updateDeaths] = useState([]);
@@ -33,7 +31,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
     });
 
     setisLoading(false);
-  }, [changeStatistics]);
+  }, [changeStatistics, setWorld]);
 
   const state = {
     labels: momentdate,
@@ -100,7 +98,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
                     display: true,
                     labelString: 'Cases',
                     fontColor: '#61822F',
-                    fontSize: 40,
+                    fontSize: 30,
                   },
 
                   ticks: {

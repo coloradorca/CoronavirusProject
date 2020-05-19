@@ -1,3 +1,16 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100px;
@@ -5,8 +18,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: top;
-  font-size: calc(50px + 2vmin);
+  font-size: calc(70px + 2vmin);
   color: white;
+  margin-bottom: 10px;
 }
 .wrapper {
   display: flex;
@@ -25,13 +39,11 @@
 
 .text {
   display: flex;
-  text-align: bottom;
-  margin-top: 20px;
   margin-left: 100px;
-  height: 50px;
-  width: 100px;
-  color: red;
-  font-size: 30px;
+  width: 40vh;
+  height: 40vh;
+  color: darkblue;
+  font-size: 25px;
 }
 
 .webmap {
@@ -52,9 +64,10 @@
   display: flex;
   cursor: pointer;
   justify-content: center;
-  border-radius: 4%;
+  border-radius: 10%;
+  border: 3px solid black;
   background-color: red;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 100px;
   height: 50px;
   width: 320px;
@@ -64,7 +77,9 @@
 
 .chart,
 .charts {
-  padding: 5vh;
+  padding-top: 3vh;
+  padding-left: 3vh;
+  padding-right: 3vh;
   justify-content: right;
   height: 40vh;
   width: 70vh;

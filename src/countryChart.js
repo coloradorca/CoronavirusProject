@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import moment from 'moment';
-// import Chart from 'chart.js';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/time-series.csv';
@@ -87,12 +86,11 @@ export default function CountryChart({ showChart, maincountry }) {
     ],
   };
 
-  //return the component
   //if the data is loading, or the world chart is displayed => render an empty div
   return isLoading || !showChart || !maincountry ? (
     <div></div>
   ) : (
-    //if data loaded and world chart not selected, utilize Line component from 'react-chartjs-2' library
+    //if data loaded and world chart not selected, utilize the Line component from 'react-chartjs-2' library
     <div className='chart'>
       <div>
         <Line
@@ -107,7 +105,7 @@ export default function CountryChart({ showChart, maincountry }) {
                 // disable displaying the color box;
                 tooltip.displayColors = false;
               },
-              //these functions are for how the tooltip is display (on hover of specific line)
+              //these functions are for how the tooltip is displayed (on hover of specific line)
               callbacks: {
                 title: function (tooltipItem, data) {
                   return data['labels'][tooltipItem[0]['index']];
@@ -127,7 +125,7 @@ export default function CountryChart({ showChart, maincountry }) {
                     display: true,
                     labelString: 'Cases',
                     fontColor: '#61822F',
-                    fontSize: 40,
+                    fontSize: 30,
                   },
 
                   ticks: {
@@ -150,7 +148,7 @@ export default function CountryChart({ showChart, maincountry }) {
             },
             title: {
               display: true,
-              text: `${maincountry} -  since first Death`,
+              text: `${maincountry} (since first Death)`,
               fontSize: 30,
               fontColor: 'red',
             },
