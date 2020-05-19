@@ -4,6 +4,7 @@ import Nav from './nav.js';
 import WorldChart from './WorldChart.js';
 import CountryChart from './countryChart.js';
 import EsriMap from './EsriMap.js';
+import OpenLayers from './OpenLayers.js';
 import TextBox from './textbox.js';
 
 export default function App() {
@@ -37,13 +38,17 @@ export default function App() {
       </div>
       <div className='wrapper'>
         <div className='esrimap'>
-          <EsriMap
+          {/* <EsriMap
             toggleChart={toggleChart}
             changeStatistics={changeStats}
             changeNation={changeCountry}
             appcountry={current}
             toggle={state}
-          />
+          /> */}
+        </div>
+        <div className='olMap'>
+          This is where the OL map goes in App
+          <OpenLayers />
         </div>
         <div className='statsAndText'>
           <div className='charts'>
