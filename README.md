@@ -34,7 +34,7 @@ D3
 
 ## Map Layers & Data
 
-[ArcGIS Covid19 feature layer](https://www.arcgis.com/home/item.html?id=bbb2e4f589ba40d692fab712ae37b9ac#visualize)
+[ArcGIS Covid19 feature layer](https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1)
 
 [Data Sources](https://datahub.io/core/covid-19#resource-countries-aggregated)
 

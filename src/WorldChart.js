@@ -39,7 +39,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
       {
         label: 'Confirmed',
         fill: false,
-        borderColor: 'purple',
+        borderColor: 'grey',
         borderWidth: 5,
         pointRadius: 0,
         data: confirmed,
@@ -55,7 +55,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
       {
         label: 'Recovered',
         fill: false,
-        borderColor: 'green',
+        borderColor: 'blue',
         borderWidth: 5,
         pointRadius: 0,
         data: recovered,
