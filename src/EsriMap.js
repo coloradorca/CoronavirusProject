@@ -50,11 +50,6 @@ export default function EsriMap({
         position: 'top-right',
       });
 
-      //toggle the featurelayer via button on main page (nav component)
-      if (toggle) {
-        map.add(covidLayer, 0);
-      }
-
       view.on('click', function (event) {
         var screenPoint = {
           x: event.x,
@@ -78,13 +73,18 @@ export default function EsriMap({
         });
       });
 
+      //toggle the featurelayer via button on main page (nav component)
+      if (toggle) {
+        map.add(covidLayer, 0);
+      }
+
       return () => {
         if (view) {
           view.container = null;
         }
       };
     });
-  }, []);
+  }, [toggle]);
 
   return <div className='webmap' ref={mapRef} />;
 }

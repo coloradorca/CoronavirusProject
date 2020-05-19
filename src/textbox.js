@@ -2,20 +2,17 @@ import React from 'react';
 import './textbox.css';
 import './App.css';
 
-export default function TextBox({ countryData, world }) {
-  console.log('countrydata in textbox', countryData);
-  console.log(world);
-
+export default function TextBox({ countryData, world, worldData }) {
   return !world ? (
     <div className='textbox'>
-      <p>Confirmed: {countryData.Confirmed}</p>
-      <p>Recovered: {countryData.Recovered}</p>
-      <p>Deaths: {countryData.Deaths}</p>
+      <p>Confirmed: {worldData.Confirmed}</p>
+      <p>Recovered: {worldData.Recovered}</p>
+      <p>Deaths: {worldData.Deaths}</p>
     </div>
   ) : (
     <div className='textbox'>
       <div className='country'>
-        {countryData.Province_State === null
+        {!countryData.Province_State
           ? countryData.Country_Region
           : countryData.Country_Region + ', '}
       </div>

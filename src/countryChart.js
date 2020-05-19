@@ -89,7 +89,7 @@ export default function CountryChart({ showChart, maincountry }) {
 
   //return the component
   //if the data is loading, or the world chart is displayed => render an empty div
-  return isLoading || !showChart ? (
+  return isLoading || !showChart || !maincountry ? (
     <div></div>
   ) : (
     //if data loaded and world chart not selected, utilize Line component from 'react-chartjs-2' library

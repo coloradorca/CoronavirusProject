@@ -6,7 +6,7 @@ import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 import data from './data/worldwide.csv';
 
-export default function WorldChart({ showChart, changeStatistics }) {
+export default function WorldChart({ showChart, changeStatistics, setWorld }) {
   // const [country, updateCountry] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
@@ -18,6 +18,7 @@ export default function WorldChart({ showChart, changeStatistics }) {
     setisLoading(true);
     //set timeseries from csv file
     csv(data).then((data) => {
+      setWorld(data[data.length - 1]);
       changeStatistics(data[data.length - 1]);
       data.forEach((day) => {
         //add dates to chart

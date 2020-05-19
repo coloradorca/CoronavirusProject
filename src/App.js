@@ -9,8 +9,9 @@ import TextBox from './textbox.js';
 export default function App() {
   const [state, setState] = useState(true);
   const [chart, changeChart] = useState(false);
-  const [current, changeCountry] = useState('Iceland');
+  const [current, changeCountry] = useState('');
   const [stats, changeStats] = useState('');
+  const [worlds, setWorld] = useState([]);
 
   //function to toggle feature layer
   const toggle = () => {
@@ -46,11 +47,15 @@ export default function App() {
         </div>
         <div className='statsAndText'>
           <div className='charts'>
-            <WorldChart changeStatistics={changeStats} showChart={chart} />
+            <WorldChart
+              changeStatistics={changeStats}
+              showChart={chart}
+              setWorld={setWorld}
+            />
             <CountryChart maincountry={current} showChart={chart} />
           </div>
           <div className='text'>
-            <TextBox world={chart} countryData={stats} />
+            <TextBox world={chart} countryData={stats} worldData={worlds} />
           </div>
         </div>
       </div>
