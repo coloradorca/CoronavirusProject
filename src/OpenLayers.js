@@ -8,6 +8,7 @@ import SourceOSM from 'ol/source/OSM.js';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
+import XYZ from 'ol/source/XYZ';
 
 export default function OpenLayers() {
   //create a react reference to the map
@@ -28,9 +29,7 @@ export default function OpenLayers() {
       target: mapRef.current,
 
       layers: [
-        new LayerTile({
-                source: new SourceOSM(),
-              })
+        raster
       ],
       //instantiate the view
       view: new View({
