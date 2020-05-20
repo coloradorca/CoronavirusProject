@@ -48,33 +48,33 @@ export default function EsriMap({
       });
 
       //add search bar
-      var node = new Search({
+      var search = new Search({
         view: view,
       });
       // Add the search widget to the top right corner of the view
-      view.ui.add(node, {
+      view.ui.add(search, {
         position: 'top-right',
       });
 
+      //click handler to select country
       view.on('click', function (event) {
         var screenPoint = {
           x: event.x,
           y: event.y,
         };
 
-        // Search for graphics at the clicked location
+        // search for graphics at the clicked location
         view.hitTest(screenPoint).then(function (response) {
           if (response.results.length) {
             var graphic = response.results.filter(function (result) {
               // check if the graphic belongs to the covid feature layer
               return result.graphic.layer === covidLayer;
             })[0].graphic;
-            //set the country clicked back up to main App component, changing the chart
+            //get information from the selected country
+            //set the country clicked back up to main App component
             changeNation(graphic.attributes.Country_Region);
             changeStatistics(graphic.attributes);
             toggleChart();
-            //get information from the selected country
-            // console.log('country data in map', graphic.attributes);
           }
         });
       });

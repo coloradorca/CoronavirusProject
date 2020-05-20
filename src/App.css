@@ -31,21 +31,6 @@ code {
   text-align: center;
   padding: 5vh;
 }
-
-.statsAndText {
-  display: flex;
-  flex-direction: column;
-}
-
-.text {
-  display: flex;
-  margin-left: 100px;
-  width: 40vh;
-  height: 40vh;
-  color: darkblue;
-  font-size: 25px;
-}
-
 .webmap {
   cursor: pointer;
   margin: 20px;
@@ -54,6 +39,23 @@ code {
   text-align: center;
   height: 70vh;
   width: 70vh;
+}
+.olMap {
+  justify-content: center;
+  text-align: center;
+  padding: 5vh;
+}
+.statsAndText {
+  display: flex;
+  flex-direction: column;
+}
+.text {
+  display: flex;
+  margin-left: 100px;
+  width: 40vh;
+  height: 40vh;
+  color: darkblue;
+  font-size: 25px;
 }
 .buttons {
   display: flex;
@@ -74,7 +76,6 @@ code {
   color: white;
   font-size: x-large;
 }
-
 .chart,
 .charts {
   padding-top: 3vh;
