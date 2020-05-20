@@ -7,6 +7,7 @@ import EsriMap from './EsriMap.js';
 import OpenLayers from './OpenLayers.js';
 import TextBox from './textbox.js';
 
+
 export default function App() {
   const [state, setState] = useState(true);
   const [chart, changeChart] = useState(false);
@@ -22,7 +23,7 @@ export default function App() {
   const toggleChart = () => {
     changeChart(!chart);
   };
-  //function to change the selected country
+
 
   return (
     <div className='App'>

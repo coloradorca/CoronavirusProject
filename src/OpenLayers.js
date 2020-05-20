@@ -1,51 +1,71 @@
 import React, { useRef, useEffect } from 'react';
+import { Map, View } from 'ol';
+import TileLayer from 'ol/layer/Tile';
+import XYZ from 'ol/source/XYZ';
+import { defaults, ScaleLine } from 'ol/control';
 import GeoJSON from 'ol/format/GeoJSON';
-import Map from 'ol/Map';
-import VectorLayer from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import View from 'ol/View';
-// import TileLayer from 'ol/layer/Tile';
-// import { LayerTile } from 'ol/layer';
 import SourceOSM from 'ol/source/OSM.js';
-// import XYZ from 'ol/source/XYZ';
-// import { Fill, Stroke, Style, Text } from 'ol/style';
-import geojson from './data/countries.geojson';
+import { Fill, Stroke, Style, Text, Circle } from 'ol/style';
+
+import countryLines from './data/countries.geojson';
 
 export default function OpenLayers() {
-  //create a react reference to the map
-  let mapRef = useRef();
+  const mapRef = useRef();
+
+  // var style = new Style({
+  //   fill: new Fill({
+  //     color: 'rgba(255, 255, 255, 0.6)'
+  //   }),
+  //   stroke: new Stroke({
+  //     color: '#319FD3',
+  //     width: 1
+  //   }),
+  //   text: new Text({
+  //     font: '12px Calibri,sans-serif',
+  //     fill: new Fill({
+  //       color: '#000'
+  //     }),
+  //     stroke: new Stroke({
+  //       color: '#fff',
+  //       width: 3
+  //     })
+  //   })
+  // });
 
   useEffect(() => {
-    let vectorLayer = new VectorLayer({
+    const vectorLayer = new VectorLayer({
       source: new VectorSource({
+        url: countryLines,
         format: new GeoJSON(),
-        url: './data/countries.geojson',
       }),
+      // style: function(feature) {
+      //     style.getText().setText(feature.get('name'));
+      //     return style;
+      // }
     });
-    //instantiate the map
-    const map = new Map({
-      //set the target html element to render the map
-      target: mapRef.current,
-      //add layers
-      layers: [
-        vectorLayer,
-        // new VectorLayer({
-        //   source: new VectorSource({
-        //     // features: new GeoJSON().readFeatures('./data/countries.geojson'),
-        //     format: new SourceOSM(),
-        //     // url: geojson,
-        //   }),
-        // }),
 
-        // TODO:  Display the vector layer from the GeoJSON file
-      ],
-      //instantiate the view
+    const sourceMap = new TileLayer({
+      title: 'annotation',
+      source: new SourceOSM(),
+    });
+
+    const map = new Map({
+      controls: new defaults({
+        attributionOptions: {
+          collapsible: false,
+        },
+        attribution: false,
+      }).extend([new ScaleLine()]),
+      target: mapRef.current,
+      layers: [sourceMap, vectorLayer],
       view: new View({
         center: [-11718716.28195593, 4869217.172379018],
-        zoom: 13,
+        zoom: 1.5,
       }),
     });
   }, []);
 
-  return <div className='webmap' ref={mapRef} />;
+  return <div className='webmap' ref={mapRef}></div>;
 }
