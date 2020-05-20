@@ -9,7 +9,7 @@ import VectorSource from 'ol/source/Vector';
 import SourceOSM from 'ol/source/OSM.js';
 import { Fill, Stroke, Style, Text, Circle } from 'ol/style';
 
-// import countryLines from './data/countries.geojson';
+import countryLines from './data/countries.geojson';
 
 export default function OpenLayers() {
   const mapRef = useRef();
@@ -35,16 +35,16 @@ export default function OpenLayers() {
   });
 
   useEffect(() => {
-    // const vectorLayer = new VectorLayer({
-    //   source: new VectorSource({
-    //     url: countryLines,
-    //     format: new GeoJSON(),
-    //   }),
-    //   style: function(feature) {
-    //       style.getText().setText(feature.get('name'));
-    //       return style;
-    //   }
-    // });
+    const vectorLayer = new VectorLayer({
+      source: new VectorSource({
+        url: countryLines,
+        format: new GeoJSON(),
+      }),
+      style: function(feature) {
+          style.getText().setText(feature.get('name'));
+          return style;
+      }
+    });
 
     const sourceMap = new TileLayer({
       title: 'annotation',
@@ -60,7 +60,7 @@ export default function OpenLayers() {
       }).extend([new ScaleLine()]),
       target: mapRef.current,
       layers: [sourceMap,
-        // vectorLayer
+        vectorLayer
       ],
       view: new View({
         center: [-11718716.28195593, 4869217.172379018],

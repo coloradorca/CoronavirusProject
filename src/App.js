@@ -38,6 +38,7 @@ export default function App() {
         />
       </div>
       <div className='wrapper'>
+        {!state ? (
         <div className='esrimap'>
           <EsriMap
             toggleChart={toggleChart}
@@ -46,10 +47,15 @@ export default function App() {
             appcountry={current}
             toggle={state}
           />
-        </div>
+        </div> ): (
+
         <div className='olMap'>
-          {/* <OpenLayers /> */}
+          <OpenLayers />
         </div>
+
+        )
+
+  }
         <div className='statsAndText'>
           <div className='charts'>
             <WorldChart
