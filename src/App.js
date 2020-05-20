@@ -39,16 +39,16 @@ export default function App() {
       </div>
       <div className='wrapper'>
         <div className='esrimap'>
-          {/* <EsriMap
+          <EsriMap
             toggleChart={toggleChart}
             changeStatistics={changeStats}
             changeNation={changeCountry}
             appcountry={current}
             toggle={state}
-          /> */}
+          />
         </div>
         <div className='olMap'>
-          <OpenLayers />
+          {/* <OpenLayers /> */}
         </div>
         <div className='statsAndText'>
           <div className='charts'>
