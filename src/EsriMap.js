@@ -36,8 +36,8 @@ export default function EsriMap({
 
       //set constraints on the zoom
       view.constraints = {
-        minZoom: 1,
-        maxZoom: 8,
+        minZoom: 2,
+        maxZoom: 7,
       };
 
       //featureLayer displaying red circles of coronavirus cases
