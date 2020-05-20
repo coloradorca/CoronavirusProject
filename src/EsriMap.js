@@ -79,10 +79,9 @@ export default function EsriMap({
         });
       });
 
-      //toggle the featurelayer via button on main page (nav component)
-      if (toggle) {
+
         map.add(covidLayer, 0);
-      }
+
 
       return () => {
         if (view) {

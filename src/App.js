@@ -7,7 +7,6 @@ import EsriMap from './EsriMap.js';
 import OpenLayers from './OpenLayers.js';
 import TextBox from './textbox.js';
 
-
 export default function App() {
   const [state, setState] = useState(true);
   const [chart, changeChart] = useState(false);
@@ -24,7 +23,6 @@ export default function App() {
     changeChart(!chart);
   };
 
-
   return (
     <div className='App'>
       <div>
@@ -38,24 +36,21 @@ export default function App() {
         />
       </div>
       <div className='wrapper'>
-        {!state ? (
-        <div className='esrimap'>
-          <EsriMap
-            toggleChart={toggleChart}
-            changeStatistics={changeStats}
-            changeNation={changeCountry}
-            appcountry={current}
-            toggle={state}
-          />
-        </div> ): (
-
-        <div className='olMap'>
-          <OpenLayers />
-        </div>
-
-        )
-
-  }
+        {state ? (
+          <div className='esrimap'>
+            <EsriMap
+              toggleChart={toggleChart}
+              changeStatistics={changeStats}
+              changeNation={changeCountry}
+              appcountry={current}
+              toggle={state}
+            />
+          </div>
+        ) : (
+          <div className='olMap'>
+            <OpenLayers />
+          </div>
+        )}
         <div className='statsAndText'>
           <div className='charts'>
             <WorldChart
