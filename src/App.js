@@ -47,7 +47,6 @@ export default function App() {
           /> */}
         </div>
         <div className='olMap'>
-          This is where the OL map goes in App
           <OpenLayers />
         </div>
         <div className='statsAndText'>
