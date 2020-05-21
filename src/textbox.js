@@ -6,7 +6,7 @@ export default function TextBox({ countryData, world, worldData }) {
 
   return !world  ? (
     <div className='textbox'>
-      <p> World Statistics</p>
+      <p className='country'> World Statistics</p>
        <p style={{color :"grey"}}>Confirmed: {Number(worldData.Confirmed).toLocaleString()}</p>
       <p style={{color :"blue"}}>Recovered: {Number(worldData.Recovered).toLocaleString()}</p>
       <p style={{color :"red"}}>Deaths: {Number(worldData.Deaths).toLocaleString()}</p>

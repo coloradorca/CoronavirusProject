@@ -77,14 +77,13 @@ code {
 	font-family:Arial;
 	font-size:20px;
 	font-weight:bold;
-	padding:12px 44px;
 	text-decoration:none;
   text-shadow:0px 1px 0px #528ecc;
   margin-top: 10px;
   margin-left: 150px;
   margin-right:100px;
   height: 50px;
-  width: 320px;
+  width: 220px;
 }
 .toggleCountry  {
 	box-shadow: 3px 4px 0px 0px #1564ad;
@@ -104,7 +103,7 @@ code {
   margin-top: 10px;
   margin-left: 180px;
   height: 50px;
-  width: 320px;
+  width: 220px;
 }
 .toggleCountry:hover, .toggleBtn:hover {
 	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
@@ -132,6 +131,14 @@ code {
 
 .country {
   font-family: Impact, Haettenschweiler, 'Arial  Bold', sans-serif;
+  color: '1d3557';
+  font-size: 28px;
+  style: 'bold';
+}
+
+.statistics {
+  padding:10px;
+  margin-left: 30px;
   color: '1d3557';
   font-size: 28px;
   style: 'bold';

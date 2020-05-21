@@ -6,6 +6,7 @@ import CountryChart from './countryChart.js';
 import EsriMap from './EsriMap.js';
 import OpenLayers from './OpenLayers.js';
 import TextBox from './textbox.js';
+import Statistics from './stats.js'
 
 export default function App() {
   const [state, setState] = useState(true);
@@ -62,9 +63,15 @@ export default function App() {
             />
             <CountryChart maincountry={current} showChart={chart} />
           </div>
+      <div>
+        {/* <Statistics maincountry={current} /> */}
+      </div>
           {worlds.length === 0 ? (<div/>) :
           (<div className='text'>
             <TextBox world={chart} countryData={stats} worldData={worlds} />
+            <div className='statistics'>
+            <Statistics maincountry={current} />
+            </div>
           </div>)
           }
         </div>

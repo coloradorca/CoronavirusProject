@@ -27,7 +27,7 @@ export default function EsriMap({
         type: "simple-marker",
         color: [0, 0, 0, 0],
         outline: {
-          color: "red",
+          color: "#E63946",
           width: 1
         }
       };
@@ -86,7 +86,7 @@ export default function EsriMap({
         popupTemplate: {
           title: popupTitle,
           content:
-            "{Deaths} people have died of {Confirmed} cases",
+            "{Deaths} people have died out of {Confirmed} Confirmed cases",
         },
         outFields: ['*'],
       });
@@ -105,7 +105,10 @@ export default function EsriMap({
       const view = new MapView({
         container: mapRef.current,
         map: map,
-        center: [-85.0502, 33.125524],
+        //united states center
+        // center: [-98, 33],
+        //norway center
+        center: [60,8],
           zoom: 3,
         constraints : {
           minZoom: 2,
@@ -144,11 +147,12 @@ export default function EsriMap({
               // check if the graphic belongs to the covid feature layer
               return result.graphic.layer === covidLayer;
             })[0].graphic;
-            //get information from the selected country
+            // console.log(graphic.attributes)
             //set the country clicked back up to main App component
-            console.log(graphic.attributes)
             changeNation(graphic.attributes.Country_Region);
+            //get information from the selected country and change statistics
             changeStatistics(graphic.attributes);
+            //toggle the country/ world chart
             toggleChart();
           }
         });

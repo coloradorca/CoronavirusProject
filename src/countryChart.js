@@ -3,7 +3,8 @@ import './App.css';
 import moment from 'moment';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
-import data from './data/time-series.csv';
+// import data from './data/time-series-5-14.csv';
+import data from './data/time-series-5-19.csv'
 
 export default function CountryChart({ showChart, maincountry }) {
   // const [country, updateCountry] = useState('Iceland');
