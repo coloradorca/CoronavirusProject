@@ -123,7 +123,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
             title: {
               display: true,
               text: 'World Coronavirus Deaths',
-              fontSize: 20,
+              fontSize: 25,
               fontColor: 'red',
             },
             legend: {

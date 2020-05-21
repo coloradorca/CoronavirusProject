@@ -1,52 +1,44 @@
-import React, {useEffect, useState } from 'react'
-import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import { csv } from 'd3';
 import data from './data/casesV2.csv';
-import './App.css'
+import './App.css';
 
-
-export default function Statistics({maincountry}){
-  const [stats, setStats] = useState(false)
-  const [isLoading, setisLoading] = useState(false);
-  const [mortality, setMortality] = useState('')
-  const [hosptitalized, setHosptitalized] = useState('')
-  const [tested, setTested] = useState('')
-  const [IncidentRate, setIncidentRate] = useState('')
-  const [active, setActive] = useState('')
-
-  // Active,Incident_Rate,People_Tested,People_Hospitalized,Mortality_Rate
+export default function Statistics({ maincountry, world }) {
+  const [mortality, setMortality] = useState('');
+  const [IncidentRate, setIncidentRate] = useState('');
+  const [active, setActive] = useState('');
 
   useEffect(() => {
-    setisLoading(true);
+
+    //clear state for every change in country so that the stats don't remain on page if there is none for the selected country
+    setMortality(() => '');
+    setIncidentRate(() => '');
+    setActive(() => '');
+
     csv(data).then((data) => {
-      // console.log("maincountry passed from app", maincountry)
       data.forEach((item) => {
-        // console.log(item['Country_Region'])
-        if(item['Country_Region'] === maincountry){
-          console.log('mortality rate', item['Mortality_Rate'])
-          console.log('hospitalized', item['People_Hospitalized'])
-          console.log('active', item['Active'])
-          console.log('Incidence Rate', item['Incident_Rate'])
-          setMortality((prev) =>  item.Mortality_Rate)
-          setIncidentRate((prev)=> item.Incident_Rate)
-          setActive((prev) => item.Active)
-          setStats(!stats)
+        if (item['Country_Region'] === maincountry) {
+          setMortality((prev) => item.Mortality_Rate);
+          setIncidentRate((prev) => item.Incident_Rate);
+          setActive((prev) => item.Active);
         }
-      })
+      });
+    });
 
-    })
+  }, [maincountry, world]);
 
-
-    setisLoading(false);
-  }, [maincountry]);
-  return (
-    !maincountry || stats || isLoading ? (<div></div>) :
-    (
+  //ensure that there is a country selected, there is data to display for the selected country and the data isn't being fetched
+  return !maincountry || !mortality || !world ? (
+    <div></div>
+  ) : (
     <div className='statistics'>
-      <div className='statistics'>Mortality Rate: {Number(mortality).toFixed(3)}</div>
-      <div className='statistics'>Incident Rate: {Number(IncidentRate).toFixed(3)}</div>
-      <div className='statistics'>Active: {active}</div>
+      <div className='statistics'>
+        Mortality Rate: {Number(mortality).toFixed(1)}
+      </div>
+      <div className='statistics'>
+        Incident Rate: {Number(IncidentRate).toFixed(1)}
+      </div>
+      <div className='statistics'>Active Cases: {active}</div>
     </div>
-    )
-  )
+  );
 }

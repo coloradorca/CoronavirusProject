@@ -17,77 +17,87 @@ export default function EsriMap({
         'esri/views/MapView',
         'esri/layers/FeatureLayer',
         'esri/widgets/Search',
-        "esri/widgets/Legend",
+        'esri/widgets/Legend',
+        'esri/widgets/Expand',
       ],
       { css: true },
-    ).then(([ArcGISMap, MapView, FeatureLayer, Search, Legend]) => {
+    ).then(([ArcGISMap, MapView, FeatureLayer, Search, Legend, Expand]) => {
 
       //define the symbol for each marker displayed on map
-      var defaultSym = {
-        type: "simple-marker",
+      const defaultSym = {
+        type: 'simple-marker',
         color: [0, 0, 0, 0],
         outline: {
-          color: "#E63946",
-          width: 1
-        }
+          color: '#E63946',
+          width: 1,
+        },
       };
-      //create the breakpoints for the size of circles displayed
-      var renderer = {
-        type: "simple",
+
+      //create the intervals for the size of circles displayed
+      const renderer = {
+        type: 'simple',
         symbol: defaultSym,
         visualVariables: [
           {
-            type: "size",
-            field: "Confirmed",
+            type: 'size',
+            field: 'Confirmed',
             legendOptions: {
-              title: "Amount of confirmed cases"
+              title: 'Amount of confirmed cases',
             },
             stops: [
               {
-                value:1000,
+                value: 1000,
                 size: 4,
-                label: "<1000"
+                label: '<1000',
               },
               {
                 value: 2000,
                 size: 10,
-                label: "10-20k"
+                label: '10-20k',
               },
               {
                 value: 40000,
                 size: 15,
-                label: "20 - 40k"
+                label: '20 - 40k',
               },
-               {
+              {
                 value: 80000,
                 size: 25,
-                label: ">80,000",
-               }
-            ]
-          }
-        ]
+                label: '>80,000',
+              },
+            ],
+          },
+        ],
       };
 
-      //function to serve as the popuptitle (conditional for rendering Province/state if available)
-      const popupTitle = (feature) => {
-        if(feature.graphic.attributes.Province_State){
-          return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `
-        } else {
-          return `${feature.graphic.attributes.Country_Region} `
+      //function to serve as the popup title (conditional for rendering Province/state if available)
+      var popupTitle = (feature) => {
+        if (feature.graphic.attributes.Province_State) {
+          return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
         }
-      }
+          return `${feature.graphic.attributes.Country_Region} `;
 
+      };
+
+      const popup = {
+        featureNavigationEnabled: false,
+        overwriteActions: true,
+        title: popupTitle,
+        content:
+          '{Deaths} people have died out of {Confirmed} Confirmed cases',
+      }
+      popup.visibleElements = {
+        featureNavigationEnabled: false,
+        featureNavigation: false,
+        closeButton: false,
+      }
       //featureLayer and data generated from ArcGis Rest Service
-      var covidLayer = new FeatureLayer({
+      const covidLayer = new FeatureLayer({
         url:
           'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1',
         renderer: renderer,
-        title: "Coronavirus Cases",
-        popupTemplate: {
-          title: popupTitle,
-          content:
-            "{Deaths} people have died out of {Confirmed} Confirmed cases",
-        },
+        title: 'Coronavirus Cases',
+        popupTemplate: popup,
         outFields: ['*'],
       });
 
@@ -96,9 +106,8 @@ export default function EsriMap({
         basemap: 'dark-gray',
         //add featureLayers to the map
         layers: [
-          covidLayer,
-                  // covid2Layer
-        ]
+          covidLayer
+        ],
       });
 
       //set the map's center point, zoom level/constraints, HTML output
@@ -106,36 +115,42 @@ export default function EsriMap({
         container: mapRef.current,
         map: map,
         //united states center
-        // center: [-98, 33],
-        //norway center
-        center: [60,8],
-          zoom: 3,
-        constraints : {
+        center: [-96, 33],
+        //europe center
+        // center: [20,30],
+        zoom: 4,
+        constraints: {
           minZoom: 2,
           maxZoom: 7,
-        }
+        },
       });
 
-      //add search bar
-      var search = new Search({
+      //add search bar widget
+      const search = new Search({
         view: view,
+        position: 'top-right',
       });
-      // Add the search widget to the top right corner of the view
+      //set search widget position
       view.ui.add(search, {
         position: 'top-right',
       });
 
-      // add a map legend
-      // view.ui.add(
-      //   new Legend({
-      //     view: view
-      //   }),
-      //   "bottom-left"
-      // );
+      // add legend widget with the ability to expand it
+      const legend = new Legend({
+        view: view,
+      });
+      const legendExpand = new Expand({
+        expandTooltip: 'Show Legend',
+        expanded: false,
+        view: view,
+        content: legend,
+      });
+
+      view.ui.add(legendExpand, 'bottom-left');
 
       //click handler to select country
       view.on('click', function (event) {
-        var screenPoint = {
+        let screenPoint = {
           x: event.x,
           y: event.y,
         };
@@ -143,7 +158,7 @@ export default function EsriMap({
         // search for graphics at the clicked location
         view.hitTest(screenPoint).then(function (response) {
           if (response.results.length) {
-            var graphic = response.results.filter(function (result) {
+            let graphic = response.results.filter(function (result) {
               // check if the graphic belongs to the covid feature layer
               return result.graphic.layer === covidLayer;
             })[0].graphic;

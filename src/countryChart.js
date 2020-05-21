@@ -4,7 +4,7 @@ import moment from 'moment';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
 // import data from './data/time-series-5-14.csv';
-import data from './data/time-series-5-19.csv'
+import data from './data/time-series-5-19.csv';
 
 export default function CountryChart({ showChart, maincountry }) {
   // const [country, updateCountry] = useState('Iceland');
@@ -33,6 +33,7 @@ export default function CountryChart({ showChart, maincountry }) {
           if (item['Country/Region'] === `${maincountry}`) {
             //add dates to chart
             updateDate((days) => [...days, moment(item.Date).format('MMM Do')]);
+            // updateDate(() => [ moment(item.Date).format('MMM Do')]);
             //add & update recovered cases
             updateRecovered((recovery) => [...recovery, item.Recovered]);
             //add & update confirmed cases
@@ -76,7 +77,6 @@ export default function CountryChart({ showChart, maincountry }) {
         pointRadius: 0,
         borderColor: 'blue',
         borderWidth: 5,
-
         data: recovered,
       },
     ],
@@ -143,8 +143,8 @@ export default function CountryChart({ showChart, maincountry }) {
             },
             title: {
               display: true,
-              text: `${maincountry} (since first Death)`,
-              fontSize: 20,
+              text: `${maincountry} (since first death)`,
+              fontSize: 25,
               fontColor: 'red',
             },
             legend: {
