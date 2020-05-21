@@ -131,7 +131,8 @@ code {
 }
 
 .country {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: orange;
+  font-family: Impact, Haettenschweiler, 'Arial  Bold', sans-serif;
+  color: '1d3557';
   font-size: 28px;
+  style: 'bold';
 }
