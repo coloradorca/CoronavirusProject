@@ -22,7 +22,7 @@ export default function EsriMap({
     ).then(([ArcGISMap, MapView, FeatureLayer, Search]) => {
       const map = new ArcGISMap({
         //change the basemap color/value here
-        basemap: 'dark-gray',
+        basemap: 'topo',
         layers: [],
       });
 
@@ -30,8 +30,8 @@ export default function EsriMap({
       const view = new MapView({
         container: mapRef.current,
         map: map,
-        center: [26, 43.76],
-        zoom: 4,
+        center: [-104, 40],
+        zoom: 6,
       });
 
       //set constraints on the zoom

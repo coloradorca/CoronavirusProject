@@ -14,9 +14,17 @@ Clone this repo
 
 Run the following commands
 
-`npm install`
+```
+npm install
 
-`npm start`
+npm start
+```
+Alternatively run the installation and start commands together:
+
+```
+bash git clone https://github.com/coloradorca/CoronavirusProject.git && npm install && npm start
+
+```
 
 ---
 

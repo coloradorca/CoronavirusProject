@@ -3,34 +3,36 @@ import './App.css';
 
 export default function TextBox({ countryData, world, worldData }) {
   //the textbox is wrapped in a large conditional if the world or nation chart is displaying
-  return !world ? (
+
+  return !world  ? (
     <div className='textbox'>
       <p> World Statistics</p>
-      <p>Confirmed: {worldData.Confirmed}</p>
-      <p>Recovered: {worldData.Recovered}</p>
-      <p>Deaths: {worldData.Deaths}</p>
+       <p style={{color :"grey"}}>Confirmed: {Number(worldData.Confirmed).toLocaleString()}</p>
+      <p style={{color :"blue"}}>Recovered: {Number(worldData.Recovered).toLocaleString()}</p>
+      <p style={{color :"red"}}>Deaths: {Number(worldData.Deaths).toLocaleString()}</p>
     </div>
   ) : (
     <div className='textbox'>
       <div className='country'>
         {!countryData.Province_State ? (
-          <div> {countryData.Country_Region} </div>
+          <p> {countryData.Country_Region} </p>
         ) : (
-          <div>
+          <p>
             {' '}
             {countryData.Province_State +
               ', ' +
               countryData.Country_Region}{' '}
-          </div>
+          </p>
         )}
       </div>
-      <div>Confirmed: {countryData.Confirmed}</div>
+      <p style={{color :"black"}}>Confirmed: {(countryData.Confirmed).toLocaleString()}</p>
       {countryData.Recovered === 0 ? (
         <div> </div>
       ) : (
-        <div>Recovered: {countryData.Recovered}</div>
+        <p style={{color :"blue"}}>Recovered: {(countryData.Recovered).toLocaleString()}</p>
       )}
-      <div>Deaths: {countryData.Deaths}</div>
+      <p style={{color :"red"}}>Deaths: {(countryData.Deaths).toLocaleString()}</p>
     </div>
-  );
+  )
+
 }

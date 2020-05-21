@@ -30,6 +30,7 @@ export default function App() {
       </div>
       <div>
         <Nav
+          chart={chart}
           toggle={toggle}
           toggleChart={toggleChart}
           changeStatistics={changeStats}
@@ -52,7 +53,8 @@ export default function App() {
           </div>
         )}
         <div className='statsAndText'>
-          <div className='charts'>
+          {/* <div className='charts'> */}
+          <div>
             <WorldChart
               changeStatistics={changeStats}
               showChart={chart}
@@ -60,9 +62,11 @@ export default function App() {
             />
             <CountryChart maincountry={current} showChart={chart} />
           </div>
-          <div className='text'>
+          {worlds.length === 0 ? (<div/>) :
+          (<div className='text'>
             <TextBox world={chart} countryData={stats} worldData={worlds} />
-          </div>
+          </div>)
+          }
         </div>
       </div>
     </div>

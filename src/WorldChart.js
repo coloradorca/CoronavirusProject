@@ -98,7 +98,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
                     display: true,
                     labelString: 'Cases',
                     fontColor: '#61822F',
-                    fontSize: 30,
+                    fontSize: 15,
                   },
 
                   ticks: {
@@ -114,7 +114,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
                     display: true,
                     labelString: 'Date',
                     fontColor: '#61822F',
-                    fontSize: 25,
+                    fontSize: 15,
                   },
                 },
               ],
@@ -123,7 +123,7 @@ export default function WorldChart({ showChart, changeStatistics, setWorld }) {
             title: {
               display: true,
               text: 'World Coronavirus Deaths',
-              fontSize: 30,
+              fontSize: 20,
               fontColor: 'red',
             },
             legend: {

@@ -120,9 +120,8 @@ export default function CountryChart({ showChart, maincountry }) {
                     display: true,
                     labelString: 'Cases',
                     fontColor: '#61822F',
-                    fontSize: 30,
+                    fontSize: 15,
                   },
-
                   ticks: {
                     callback: function (value) {
                       return value;
@@ -136,7 +135,7 @@ export default function CountryChart({ showChart, maincountry }) {
                     display: true,
                     labelString: 'Date',
                     fontColor: '#61822F',
-                    fontSize: 25,
+                    fontSize: 15,
                   },
                 },
               ],
@@ -144,7 +143,7 @@ export default function CountryChart({ showChart, maincountry }) {
             title: {
               display: true,
               text: `${maincountry} (since first Death)`,
-              fontSize: 30,
+              fontSize: 20,
               fontColor: 'red',
             },
             legend: {

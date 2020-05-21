@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
-export default function Nav({ toggle, toggleChart, changeStatistics }) {
+export default function Nav({ chart, toggle, toggleChart, changeStatistics }) {
+  const [isLoading, setLoading] = useState(false);
+
+  const changeState = () => {
+    setLoading(!isLoading);
+  };
+
   return (
     <div className='buttons'>
-      <button className='toggleBtn' onClick={toggle}>
-        ESRI / OpenLayers Map
+      <button className='toggleMap' variant='primary' onClick={() => ( toggle(), changeState() )}> {isLoading ?  "ESRI map" : "OpenLayers Map" }
       </button>
-      <button className='toggleCountry' onClick={toggleChart}>
-        World/Country Chart
-      </button>
-    </div>
-  );
+        <div></div>{!chart ? ( <div/>) : (
+        <button className='toggleCountry' onClick={toggleChart}>
+        World Chart
+      </button>)}
+      </div>
+
+
+  )
 }

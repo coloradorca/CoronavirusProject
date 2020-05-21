@@ -14,36 +14,13 @@ import countryLines from './data/countries.geojson';
 export default function OpenLayers() {
   const mapRef = useRef();
 
-  var style = new Style({
-    fill: new Fill({
-      color: 'rgba(255, 255, 255, 0.6)'
-    }),
-    stroke: new Stroke({
-      color: '#319FD3',
-      width: 1
-    }),
-    text: new Text({
-      font: '12px Calibri,sans-serif',
-      fill: new Fill({
-        color: '#000'
-      }),
-      stroke: new Stroke({
-        color: '#fff',
-        width: 3
-      })
-    })
-  });
-
   useEffect(() => {
     const vectorLayer = new VectorLayer({
       source: new VectorSource({
         url: countryLines,
         format: new GeoJSON(),
       }),
-      style: function(feature) {
-          style.getText().setText(feature.get('name'));
-          return style;
-      }
+
     });
 
     const sourceMap = new TileLayer({
@@ -68,10 +45,11 @@ export default function OpenLayers() {
       }),
     });
 
-    map.on('click', function(evt) {
-      // if (evt.dragging) {
-      //   return;
-      // }
+    map.on('pointerdown', function(evt) {
+      console.log('click event')
+      if (evt.dragging) {
+        return;
+      }
       var pixel = map.getEventPixel(evt.originalEvent);
       console.log(pixel);
     });
