@@ -144,7 +144,7 @@ export default function CountryChart({ showChart, maincountry }) {
               display: true,
               text: `${maincountry} (since first death)`,
               fontSize: 25,
-              fontColor: 'red',
+              fontColor: '#FF7E00',
             },
             legend: {
               display: true,

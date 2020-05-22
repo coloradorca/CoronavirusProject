@@ -33,7 +33,7 @@ export default function TextBox({ countryData, world, worldData }) {
           </p>
         )}
       </div>
-      <p style={{ color: 'black' }}>
+      <p style={{ color: 'grey' }}>
         Confirmed: {countryData.Confirmed.toLocaleString()}
       </p>
       {countryData.Recovered === 0 ? (

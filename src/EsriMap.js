@@ -28,7 +28,7 @@ export default function EsriMap({
         type: 'simple-marker',
         color: [0, 0, 0, 0],
         outline: {
-          color: 'red',
+          color: '#FF7E00',
           width: 1,
         },
       };
@@ -72,12 +72,12 @@ export default function EsriMap({
 
       //function to serve as the popup title (conditional for rendering Province/state if available)
       //returns a null value when click the next button on the popup
-      var popupTitle = (feature) => {
-        if (feature.graphic.attributes.Province_State) {
-          return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
-        }
-        return `${feature.graphic.attributes.Country_Region} `;
-      };
+      // var popupTitle = (feature) => {
+      //   if (feature.graphic.attributes.Province_State) {
+      //     return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
+      //   }
+      //   return `${feature.graphic.attributes.Country_Region} `;
+      // };
 
       //Set the pop-up information
       const popup = {
@@ -151,18 +151,21 @@ export default function EsriMap({
 
         // search for graphics at the clicked location
         view.hitTest(screenPoint).then(function (response) {
-          if (response.results.length) {
+          if (response.results && response.results.length) {
             let graphic = response.results.filter(function (result) {
               // check if the graphic belongs to the covid feature layer
               return result.graphic.layer === covidLayer;
             })[0].graphic;
-            // console.log(graphic.attributes)
-            //set the country clicked back up to main App component
-            changeNation(graphic.attributes.Country_Region);
-            //get information from the selected country and change statistics
-            changeStatistics(graphic.attributes);
-            //toggle the country/ world chart
-            toggleChart();
+              // console.log(graphic.attributes)
+              //set the country clicked back up to main App component
+              changeNation(graphic.attributes.Country_Region);
+              //get information from the selected country and change statistics
+              changeStatistics(graphic.attributes);
+              //toggle the country/ world chart
+              toggleChart();
+
+          } else {
+            return
           }
         });
       });
