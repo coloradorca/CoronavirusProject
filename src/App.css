@@ -54,7 +54,7 @@ code {
   font-size: 25px;
   border: 2px solid black;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   background-color: #f6c370b2;
 }
 .buttons {
@@ -138,9 +138,9 @@ code {
 .statistics {
   justify-content: right;
   padding: 10px;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   color: '1d3557';
-  font-size: 24px;
+  font-size: 20px;
   style: 'bold';
 }
 

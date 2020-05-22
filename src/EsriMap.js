@@ -48,22 +48,22 @@ export default function EsriMap({
               {
                 value: 1000,
                 size: 4,
-                label: '<1000',
+                label: '< 1000',
               },
               {
                 value: 2000,
                 size: 10,
-                label: '10-20k',
+                label: '10,000 -20,000',
               },
               {
                 value: 40000,
                 size: 15,
-                label: '20 - 40k',
+                label: '20,000 - 40,000',
               },
               {
                 value: 80000,
                 size: 25,
-                label: '>80,000',
+                label: '> 80,000',
               },
             ],
           },
@@ -113,7 +113,7 @@ export default function EsriMap({
         center: [-96, 33],
         //europe center
         // center: [20,30],
-        zoom: 4,
+        zoom: 3,
         constraints: {
           minZoom: 2,
           maxZoom: 7,
