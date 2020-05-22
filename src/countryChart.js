@@ -7,7 +7,6 @@ import { Line } from 'react-chartjs-2';
 import data from './data/time-series-5-19.csv';
 
 export default function CountryChart({ showChart, maincountry }) {
-  // const [country, updateCountry] = useState('Iceland');
   const [isLoading, setisLoading] = useState(false);
   const [momentdate, updateDate] = useState([]);
   const [deaths, updateDeaths] = useState([]);

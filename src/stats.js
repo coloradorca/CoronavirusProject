@@ -9,7 +9,6 @@ export default function Statistics({ maincountry, world }) {
   const [active, setActive] = useState('');
 
   useEffect(() => {
-
     //clear state for every change in country so that the stats don't remain on page if there is none for the selected country
     setMortality(() => '');
     setIncidentRate(() => '');
@@ -24,7 +23,6 @@ export default function Statistics({ maincountry, world }) {
         }
       });
     });
-
   }, [maincountry, world]);
 
   //ensure that there is a country selected, there is data to display for the selected country and the data isn't being fetched

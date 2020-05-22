@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 export default function Nav({ chart, toggle, toggleChart, changeStatistics }) {
@@ -10,14 +10,21 @@ export default function Nav({ chart, toggle, toggleChart, changeStatistics }) {
 
   return (
     <div className='buttons'>
-      <button className='toggleMap' variant='primary' onClick={() => ( toggle(), changeState() )}> {isLoading ?  "ESRI map" : "OpenLayers Map" }
+      <button
+        className='toggleMap'
+        variant='primary'
+        onClick={() => (toggle(), changeState())}>
+        {' '}
+        {isLoading ? 'Show ESRI map' : 'Show OpenLayers Map'}
       </button>
-        <div></div>{!chart ? ( <div/>) : (
+      <div></div>
+      {!chart ? (
+        <div />
+      ) : (
         <button className='toggleCountry' onClick={toggleChart}>
-        World Chart
-      </button>)}
-      </div>
-
-
-  )
+          Show World Chart
+        </button>
+      )}
+    </div>
+  );
 }

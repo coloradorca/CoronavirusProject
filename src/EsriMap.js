@@ -76,8 +76,7 @@ export default function EsriMap({
         if (feature.graphic.attributes.Province_State) {
           return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
         }
-          return `${feature.graphic.attributes.Country_Region} `;
-
+        return `${feature.graphic.attributes.Country_Region} `;
       };
 
       //Set the pop-up information
@@ -86,9 +85,8 @@ export default function EsriMap({
         overwriteActions: true,
         // title: popupTitle,
         title: `{Country_Region}`,
-        content:
-          '{Deaths} people have died out of {Confirmed} Confirmed cases',
-      }
+        content: '{Deaths} people have died out of {Confirmed} Confirmed cases',
+      };
 
       //featureLayer and data generated from ArcGis Rest Service
       const covidLayer = new FeatureLayer({
@@ -104,9 +102,7 @@ export default function EsriMap({
         //change the basemap color/value here
         basemap: 'dark-gray',
         //add featureLayers to the map
-        layers: [
-          covidLayer
-        ],
+        layers: [covidLayer],
       });
 
       //set the map's center point, zoom level/constraints, HTML output
@@ -127,7 +123,6 @@ export default function EsriMap({
       //add search bar widget
       const search = new Search({
         view: view,
-        position: 'top-right',
       });
       //set search widget position
       view.ui.add(search, {

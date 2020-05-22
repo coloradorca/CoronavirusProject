@@ -3,7 +3,6 @@ import './App.css';
 import moment from 'moment';
 
 export default function TextBox({ countryData, world, worldData }) {
-
   //the textbox is wrapped in a large conditional if the world or nation chart is displaying,
   //with subsequent conditionals to render specific data
   return !world ? (

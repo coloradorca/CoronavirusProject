@@ -20,7 +20,6 @@ export default function OpenLayers() {
         url: countryLines,
         format: new GeoJSON(),
       }),
-
     });
 
     const sourceMap = new TileLayer({
@@ -36,28 +35,22 @@ export default function OpenLayers() {
         attribution: false,
       }).extend([new ScaleLine()]),
       target: mapRef.current,
-      layers: [sourceMap,
-        vectorLayer
-      ],
+      layers: [sourceMap, vectorLayer],
       view: new View({
         center: [-11718716.28195593, 4869217.172379018],
         zoom: 1.5,
       }),
     });
 
-    map.on('pointerdown', function(evt) {
-      console.log('click event')
+    map.on('pointerdown', function (evt) {
+      console.log('click event');
       if (evt.dragging) {
         return;
       }
       var pixel = map.getEventPixel(evt.originalEvent);
       console.log(pixel);
     });
-
-
   }, []);
-
-
 
   return <div className='webmap' ref={mapRef}></div>;
 }
