@@ -28,7 +28,7 @@ export default function EsriMap({
         type: 'simple-marker',
         color: [0, 0, 0, 0],
         outline: {
-          color: '#E63946',
+          color: 'red',
           width: 1,
         },
       };
@@ -71,6 +71,7 @@ export default function EsriMap({
       };
 
       //function to serve as the popup title (conditional for rendering Province/state if available)
+      //returns a null value when click the next button on the popup
       var popupTitle = (feature) => {
         if (feature.graphic.attributes.Province_State) {
           return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
@@ -79,18 +80,16 @@ export default function EsriMap({
 
       };
 
+      //Set the pop-up information
       const popup = {
         featureNavigationEnabled: false,
         overwriteActions: true,
-        title: popupTitle,
+        // title: popupTitle,
+        title: `{Country_Region}`,
         content:
           '{Deaths} people have died out of {Confirmed} Confirmed cases',
       }
-      popup.visibleElements = {
-        featureNavigationEnabled: false,
-        featureNavigation: false,
-        closeButton: false,
-      }
+
       //featureLayer and data generated from ArcGis Rest Service
       const covidLayer = new FeatureLayer({
         url:
