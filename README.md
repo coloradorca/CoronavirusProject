@@ -46,3 +46,20 @@ D3
 ## Created by
 
 Rob Gonzalez-Pita
+
+## Phases 
+
+- [x] Implement ESRI Map 
+
+- [] Incorporate another ArcGIS FeatureLayer (Coronavirus by U.S. County Feature Layer)
+
+- [] Implement the OpenLayers Map (only us GeoJSON and CSV files) 
+
+- [] Create the ability to 'Save' or 'Watch' a specific country 
+
+- [] Refactor chart using Plotly.js 
+
+
+
+
+
