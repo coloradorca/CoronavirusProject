@@ -51,14 +51,19 @@ Rob Gonzalez-Pita
 
 - [x] Implement ESRI Map 
 
-- [] Incorporate another ArcGIS FeatureLayer (Coronavirus by U.S. County Feature Layer)
+- [x] Use chart.js for data visualization
 
-- [] Implement the OpenLayers Map (only us GeoJSON and CSV files) 
+- [x] Create a text box to display numerical data
 
-- [] Create the ability to 'Save' or 'Watch' a specific country 
+- [ ] Incorporate another ArcGIS FeatureLayer (Coronavirus by U.S. County Feature Layer)
 
-- [] Refactor chart using Plotly.js 
+- [ ] Implement the OpenLayers Map (only us GeoJSON and CSV files) 
 
+- [ ] Create the ability to 'Save' or 'Watch' a specific country 
+
+- [ ] Refactor chart using Plotly.js 
+
+- [ ] Polish styling of the text box 
 
 
 
