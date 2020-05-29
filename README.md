@@ -48,3 +48,25 @@ D3
 ## Created by
 
 Rob Gonzalez-Pita
+
+## Phases 
+
+- [x] Implement ESRI Map 
+
+- [x] Use chart.js for data visualization
+
+- [x] Create a text box to display numerical data
+
+- [ ] Incorporate another ArcGIS FeatureLayer (Coronavirus by U.S. County Feature Layer)
+
+- [ ] Implement the OpenLayers Map (only us GeoJSON and CSV files) 
+
+- [ ] Create the ability to 'Save' or 'Watch' a specific country 
+
+- [ ] Refactor chart using Plotly.js 
+
+- [ ] Polish styling of the text box 
+
+
+
+
