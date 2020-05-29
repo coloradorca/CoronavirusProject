@@ -72,19 +72,19 @@ export default function EsriMap({
 
       //function to serve as the popup title (conditional for rendering Province/state if available)
       //returns a null value when click the next button on the popup
-      // var popupTitle = (feature) => {
-      //   if (feature.graphic.attributes.Province_State) {
-      //     return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
-      //   }
-      //   return `${feature.graphic.attributes.Country_Region} `;
-      // };
+      var popupTitle = (feature) => {
+        if (feature.graphic.attributes.Province_State) {
+          return `${feature.graphic.attributes.Province_State}, ${feature.graphic.attributes.Country_Region} `;
+        }
+        return `${feature.graphic.attributes.Country_Region} `;
+      };
 
       //Set the pop-up information
       const popup = {
         featureNavigationEnabled: false,
         overwriteActions: true,
-        // title: popupTitle,
-        title: `{Country_Region}`,
+        title: popupTitle,
+        // title: `{Country_Region}`,
         content: '{Deaths} people have died out of {Confirmed} Confirmed cases',
       };
 

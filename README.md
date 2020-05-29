@@ -4,6 +4,8 @@
 
 ---
 
+![](./src/data/examplePhoto.png)
+
 ## Installation
 
 Ensure `node` and `npm` are installed
