@@ -3,7 +3,7 @@ import './App.css';
 import moment from 'moment';
 import { csv } from 'd3';
 import { Line } from 'react-chartjs-2';
-import data from './data/worldwide.csv';
+import data from './data/worldwide-aggregated.csv';
 
 export default function WorldChart({ showChart, changeStatistics, setWorld }) {
   const [isLoading, setisLoading] = useState(false);

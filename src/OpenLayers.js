@@ -1,13 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
-// import XYZ from 'ol/source/XYZ';
 import { defaults, ScaleLine } from 'ol/control';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import SourceOSM from 'ol/source/OSM.js';
-// import { Fill, Stroke, Style, Text, Circle } from 'ol/style';
 
 import countryLines from './data/countries.geojson';
 
