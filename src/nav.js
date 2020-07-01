@@ -10,13 +10,13 @@ export default function Nav({ chart, toggle, toggleChart, changeStatistics }) {
 
   return (
     <div className='buttons'>
-      <button
+      {/* <button
         className='toggleMap'
         variant='primary'
         onClick={() => (toggle(), changeState())}>
         {' '}
         {isLoading ? 'Show ESRI map' : 'Show OpenLayers Map'}
-      </button>
+      </button> */}
       <div></div>
       {!chart ? (
         <div />

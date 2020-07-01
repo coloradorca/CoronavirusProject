@@ -60,7 +60,7 @@ code {
 }
 .buttons {
   display: flex;
-  justify-content: left;
+  justify-content: right;
 }
 .toggleMap {
   box-shadow: 2px 4px 0px 0px #bacee2;
@@ -101,6 +101,7 @@ code {
   margin-left: 180px;
   height: 50px;
   width: 220px;
+  justify-content: right;
 }
 .toggleCountry:hover,
 .toggleBtn:hover {
